@@ -5,7 +5,7 @@ const knex = require("knex")
 
 const HomeService = {
     // this query is used to find all the user's events to be sort in the client by month or day
-    getAllEvents(db) {
+    getAllEventsWithUserEmail(db) {
         return db('col_events')
             .select('title', 'event_date', 'event_desc')
             .then(result => {

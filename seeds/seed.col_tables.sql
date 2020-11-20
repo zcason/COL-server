@@ -1,8 +1,8 @@
 INSERT INTO col_users (email, full_name, password)
 VALUES
-('john.doe@gmail.com', 'John Doe', 'johnpassword1'),
-('mary.doe@gmail.com', ' Doe', 'password2'),
-('dunder.mifflin@gmail.com', 'Dunder Mifflin', 'password3');
+('john.doe@gmail.com', 'John Doe', '$2a$12$aj5JBrHgyGld9Uf5IzReZ.N4GYcu.9hb/RkkmoPN/rbVTBHWZTFKa'),
+('mary.doe@gmail.com', ' Mary Doe', '$2a$12$Fyebq0VVPD5ZRfXxjC2qneHtJswLLGnBvZxkQvfVc/f1e.DOkR5fS'),
+('dunder.mifflin@gmail.com', 'Dunder Mifflin', '$2a$12$GTDOcmnSw.uYiJKKZOGCEOD9VeEHZgJAMmWUn97.NJeCdLM.3Furu');
 
 
 INSERT INTO col_events (title, event_desc, event_date, user_id)

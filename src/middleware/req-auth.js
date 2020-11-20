@@ -1,3 +1,7 @@
+
+const { token } = require('morgan');
+const authService = require('../authorization/auth-service');
+
 function requireAuth(req, res, next) {
     const authToken = req.get('Authrization') || '';
     let basicToken;
@@ -9,27 +13,34 @@ function requireAuth(req, res, next) {
         basicToken = authToken.slice('basic '.length, authToken.length)
     }
 
-    const [tokenUserName, tokenPassword] = Buffer
+    const [tokenUserEmail, tokenPassword] = Buffer
         .from(basicToken, 'base64')
         .toString()
         .split(':')
 
-    if (!tokenUserName || !tokenPassword) {
+    if (!tokenUserEmail || !tokenPassword) {
         return res.status(401).json({ error: 'Unauthorized request' })
     }
     req.app.get('db')('col_users')
-        .where({ user_name: tokenUserName })
+        .where({ email: tokenUserEmail })
         .first()
         .then(user => {
             if (!user) {
                 return res.status(401).json({ error: 'Unauthorized request' })
-            }
+            };
 
-            next();
+            return authService.comparePasswords(tokenPassword, user.password)
+                .then(passwordsMatch => {
+                    if (!passwordsMatch) {
+                        return res.status(401).json({ error: 'Unauthorized request' })
+                    };
+                    req.user = user;
+                    next();
+                });
         })
         .catch(next);
 };
 
 module.exports = {
-    requireAuth
+    requireAuth,
 };

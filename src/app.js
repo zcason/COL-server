@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const homeRouter = require('./home/home-router');
+const authRouter = require('./authorization/auth-router');
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use(helmet());
 app.use(cors());
 
 // Routes
-app.use('/home', homeRouter);
+app.use('/api/', authRouter);
+app.use('/api/home', homeRouter);
 
 // Error Handler
 app.use(function errorHandler(error, req, res, next) {
