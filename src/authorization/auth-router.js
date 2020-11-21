@@ -1,7 +1,7 @@
 const { compare } = require('bcryptjs');
 const express = require('express');
 const app = require('../app');
-const authService = require('./auth-service');
+const AuthService = require('./auth-service');
 
 const authRouter = express.Router();
 const jsonBodyParser = express.json();
@@ -17,13 +17,13 @@ authRouter
                     error: `Missing '${key}' in request body`
                 });
 
-        authService.getUserWithEmail(req.app.get('db'), loginUser.email)
+        AuthService.getUserWithEmail(req.app.get('db'), loginUser.email)
             .then(dbUser => {
                 if (!dbUser) {
                     return res.status(400)
                         .json({ error: 'Incorrect email or password' });
                 }
-                return authService.comparePasswords(loginUser.password, dbUser.password)
+                return AuthService.comparePasswords(loginUser.password, dbUser.password)
                     .then(isMatch => {
                         if (!isMatch) {
                             return res.status(400)
@@ -33,7 +33,7 @@ authRouter
                         const payload = { user_id: dbUser.id };
 
 
-                        res.send({ authToken: authService.createJwt(sub, payload) });
+                        res.send({ authToken: AuthService.createJwt(sub, payload) });
                     });
             })
             .catch(next);

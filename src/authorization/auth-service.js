@@ -2,7 +2,7 @@ const bycrpyt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
-const authService = {
+const AuthService = {
     getUserWithEmail(db, user_email) {
         return db(db)
             .from('col_users')
@@ -25,4 +25,4 @@ const authService = {
     }
 }
 
-module.exports = authService; 
+module.exports = AuthService; 
