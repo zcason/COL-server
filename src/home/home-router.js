@@ -5,10 +5,11 @@ const HomeService = require('./home-service')
 const homeRouter = express.Router()
 
 homeRouter
-    .route('/')
+    .route('/:begin_date/:end_date')
     .get(requireAuth, (req, res, next) => {
-
-        HomeService.getAllEventsWithUserId(req.app.get('db'), req.user.id)
+        const { begin_date, end_date } = req.params;
+        const dates = { begin_date, end_date }
+        HomeService.getUserEventsByMonth(req.app.get('db'), req.user.id, dates)
             .then(events => {
                 res.json(events)
             })
