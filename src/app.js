@@ -4,8 +4,9 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
-const homeRouter = require('./home/home-router');
 const authRouter = require('./authorization/auth-router');
+const homeRouter = require('./home/home-router');
+const usersRouter = require('./users/users-router');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors());
 
 // Routes
 app.use('/api/', authRouter);
+app.use('/api/create-account', usersRouter)
 app.use('/api/home', homeRouter);
 
 // Error Handler

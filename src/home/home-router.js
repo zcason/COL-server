@@ -1,8 +1,8 @@
-const express = require('express')
-const { requireAuth } = require('../middleware/jwt-auth')
-const HomeService = require('./home-service')
+const express = require('express');
+const { requireAuth } = require('../middleware/jwt-auth');
+const HomeService = require('./home-service');
 
-const homeRouter = express.Router()
+const homeRouter = express.Router();
 
 homeRouter
     .route('/:begin_date/:end_date')
