@@ -22,4 +22,4 @@ const HomeService = {
 }
 
 
-module.exports = HomeService
+module.exports = HomeService;

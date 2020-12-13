@@ -16,4 +16,4 @@ homeRouter
             .catch(next)
     })
 
-module.exports = homeRouter
+module.exports = homeRouter;

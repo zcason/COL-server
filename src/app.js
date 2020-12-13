@@ -7,6 +7,8 @@ const { NODE_ENV } = require('./config');
 const authRouter = require('./authorization/auth-router');
 const homeRouter = require('./home/home-router');
 const usersRouter = require('./users/users-router');
+const profileRouter = require('./profile/profile-router');
+const createEventRouter = require('./create-events/create-event-router');
 
 const app = express();
 
@@ -23,7 +25,8 @@ app.use(cors());
 app.use('/api/', authRouter);
 app.use('/api/create-account', usersRouter)
 app.use('/api/home', homeRouter);
-
+app.use('/api/profile', profileRouter);
+app.use('/api/create-event', createEventRouter)
 // Error Handler
 app.use(function errorHandler(error, req, res, next) {
     let response
