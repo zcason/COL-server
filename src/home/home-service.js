@@ -14,11 +14,13 @@ const HomeService = {
             .orderByRaw('1 DESC')
     },
 
-    // this query is used to update a specific event
-    updateEvent() { },
-
     // this query is used to delete a specific event
-    deleteEvent() { }
+    deleteEvent(db, user_id, event_id) {
+        return db('col_events')
+            .where({ 'id': event_id })
+            .andWhere({ 'user_id': user_id })
+            .delete()
+    }
 }
 
 

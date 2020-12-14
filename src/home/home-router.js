@@ -16,4 +16,16 @@ homeRouter
             .catch(next)
     })
 
+homeRouter
+    .route('/:id')
+    .delete(requireAuth, (req, res, next) => {
+        const { id } = req.params;
+        HomeService.deleteEvent(req.app.get('db'), req.user.id, id)
+            .then(() => {
+                res.status(204).end()
+            })
+            .catch(next)
+
+    })
+
 module.exports = homeRouter;
