@@ -22,7 +22,7 @@ app.use(helmet());
 app.use(cors());
 
 // Routes
-app.use('/api/', authRouter);
+app.use('/api/login', authRouter);
 app.use('/api/create-account', usersRouter)
 app.use('/api/home', homeRouter);
 app.use('/api/profile', profileRouter);
