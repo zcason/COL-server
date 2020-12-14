@@ -4,7 +4,7 @@ COL or Cognitive Off-Loader allows users to create calendar events with a date, 
 
 
 ### 1. Working Prototype
-You can access a working prototype of the React app here:  and Node app here: 
+You can access a working prototype of the React app here: https://col-e07sgjegy.vercel.app/ and Node app here: https://dry-headland-26786.herokuapp.com/api
 
 
 
