@@ -4,7 +4,7 @@ COL or Cognitive Off-Loader allows users to create calendar events with a date, 
 
 
 ### 1. Working Prototype
-You can access a working prototype of the React app here:  and Node app here: 
+You can access a working prototype of the React app here: https://col-e07sgjegy.vercel.app/ and Node app here: https://dry-headland-26786.herokuapp.com/api
 
 
 
@@ -45,7 +45,7 @@ Login Page
 Sign Up/Registration Page
 ![Sign Up/Registration Page](/screenshot-images/Sign-Up-Page.png)
 Home Page
-![Home Page](/screenshot-images/Home-Page.png)
+![Home Page](/screenshot-images/Calendar-Page.png)
 Proflie Page
 ![Profile Page](/screenshot-images/Profile-Page.png)
 Event Page
@@ -56,27 +56,28 @@ Event Page
 ### 4. API Documentation
 API Documentation details:
 * GET All Events by Month
-    * `https://nomnoms-app.herokuapp.com/api/home/:beginningOfMonth:endOfMonth`
+    * `https://dry-headland-26786.herokuapp.com/api/home/:beginningOfMonth:endOfMonth`
 
 * GET Profile
-    * `https://nomnoms-app.herokuapp.com/api/profile`
+    * `https://dry-headland-26786.herokuapp.com/api/profile`
 
 * POST Event
-    * `https://nomnoms-app.herokuapp.com/api/create-event`
+    * `https://dry-headland-26786.herokuapp.com/api/create-event`
         * JSON body
         *   { "Title": "Lunch with Client", "event_desc": "Bring Pitch Material ", "event_date": 2013-03-01T00:00:00+01:00, 
             }
 
 * POST User
-    * `https://nomnoms-app.herokuapp.com/api/create-account`
+    * `https://dry-headland-26786.herokuapp.com/api/create-account`
         * JSON body
         *   { "full_name": "John Doe", "email": "john.doe3@gmail.com", "password": "Password123!" }
 
 * DELETE Event
-    * `https://nomnoms-app.herokuapp.com/api/home/:event_id`
+    * `https://dry-headland-26786.herokuapp.com/api/home/:event_id`
 
 * DELETE Profile
-    * `https://nomnoms-app.herokuapp.com/api/profile/:user_id`
+    * `https://dry-headland-26786.herokuapp.com/api/profile/:user_id`
+
 
 
 
