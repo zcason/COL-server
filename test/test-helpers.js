@@ -5,14 +5,14 @@ function makeUsersArray() {
     return [
         {
             id: 1,
-            full_name: 'Test user 1',
-            email: 'test-user-1',
+            full_name: 'John Doe',
+            email: 'john.doe@gmail.com',
             password: 'password',
         },
         {
             id: 2,
             full_name: 'Test user 2',
-            username: 'test-user-2',
+            email: 'jane.doe@gmail.com',
             password: 'password',
         },
     ]
@@ -24,22 +24,21 @@ function makeEventsArray(users) {
             id: 1,
             title: 'First test post!',
             event_desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
-            event_date: new Date('2029-01-22T16:28:32.615Z'),
+            event_date: new Date('2020-12-22T16:28:32.615Z'),
             user_id: users[0].id,
         },
         {
             id: 2,
             title: 'Second test post!',
             event_desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
-            event_date: new Date('2029-03-22T16:28:32.615Z'),
+            event_date: new Date('2020-12-24T16:28:32.615Z'),
             user_id: users[1].id,
         },
     ]
 }
 
 function makeExpectedEvent(users, event) {
-    const user_id = users
-        .find(user => user.id === event.user_id)
+    const user_id = users.find(user => user.id === event.user_id)
 
     return {
         id: event.id,
@@ -53,7 +52,7 @@ function makeExpectedEvent(users, event) {
 function makeFixtures() {
     const testUsers = makeUsersArray()
     const testEvents = makeEventsArray(testUsers)
-    return { testUsers, testArticles }
+    return { testUsers, testEvents }
 }
 
 function cleanTables(db) {
@@ -61,17 +60,15 @@ function cleanTables(db) {
         trx.raw(
             `TRUNCATE
         col_events,
-        col_users,
+        col_users;
       `
         )
             .then(() =>
                 Promise.all([
-                    trx.raw(`ALTER SEQUENCE blogful_articles_id_seq minvalue 0 START WITH 1`),
-                    trx.raw(`ALTER SEQUENCE blogful_users_id_seq minvalue 0 START WITH 1`),
-                    trx.raw(`ALTER SEQUENCE blogful_comments_id_seq minvalue 0 START WITH 1`),
-                    trx.raw(`SELECT setval('blogful_articles_id_seq', 0)`),
-                    trx.raw(`SELECT setval('blogful_users_id_seq', 0)`),
-                    trx.raw(`SELECT setval('blogful_comments_id_seq', 0)`),
+                    trx.raw(`ALTER SEQUENCE col_events_id_seq minvalue 0 START WITH 1`),
+                    trx.raw(`ALTER SEQUENCE col_users_id_seq minvalue 0 START WITH 1`),
+                    trx.raw(`SELECT setval('col_events_id_seq', 0)`),
+                    trx.raw(`SELECT setval('col_users_id_seq', 0)`),
                 ])
             )
     )
@@ -108,7 +105,7 @@ function seedEventsTables(db, users, event) {
 
 function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
     const token = jwt.sign({ user_id: user.id }, secret, {
-        subject: user.username,
+        subject: user.email,
         algorithm: 'HS256',
     })
     return `Bearer ${token}`
