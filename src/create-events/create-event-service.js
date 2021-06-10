@@ -13,9 +13,9 @@ const CreateEventService = {
             id: event.id,
             title: xss(event.title),
             event_desc: xss(event.event_desc),
-            event_date: xss(event.date)
+            event_date: xss(event.event_date)
         }
     }
-}
+};
 
 module.exports = CreateEventService;

@@ -15,7 +15,7 @@ createEventRouter
             event_desc,
             event_date,
             user_id: req.user.id
-        }
+        };
 
         for (const field of ['title', 'event_date'])
             if (!req.body[field])
