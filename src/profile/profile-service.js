@@ -4,8 +4,9 @@ const ProfileService = {
     // this query is used to the user's profile info
     getProfile(db, user_id) {
         return db('col_users')
-            .select('full_name', 'email')
-            .where({ 'id': user_id })
+            .join('phone_number', 'col_users.id', '=', 'phone_number.user_id')
+            .select('col_users.full_name', 'col_users.email', 'phone_number.users_number')
+            .where({ 'col_users.id': user_id })
             .first()
     },
 
