@@ -1,18 +1,18 @@
 const xss = require('xss');
 
 const ProfileService = {
-    // returns true if table exists and false if not
+    // this query checks to see of a user has a phone number 
     userHasNumber(db, user_id) {
         return db.raw(`SELECT EXISTS(SELECT users_number FROM phone_number WHERE user_id = ${user_id});`)
     },
-    // this query is used to the user's profile info no number
+    // this query responds with profile info for users that don't have a phone number registered in the database
     getProfile(db, user_id) {
         return db('col_users')
             .select('full_name', 'email')
             .where({ 'id': user_id })
             .first()
     },
-    // query for if user has a number
+    // this query responds with profile info for users that have a phone number registered in the database
     getProfileWithNumber(db, user_id) {
         return db('col_users')
             .join('phone_number', 'col_users.id', '=', 'phone_number.user_id')
