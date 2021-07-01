@@ -1,3 +1,4 @@
+const { json } = require('express');
 const express = require('express');
 const { requireAuth } = require('../middleware/jwt-auth');
 const ProfileService = require('./profile-service');
@@ -8,12 +9,36 @@ const jsonBodyParser = express.json();
 
 profileRouter
     .route('/')
-    .get(requireAuth, (req, res, next) => {
-        ProfileService.getProfile(req.app.get('db'), req.user.id)
+    .get(requireAuth, async (req, res, next) => {
+        const {userHasNumber,getProfile, getProfileWithNumber} = ProfileService;
+
+        // checks if the users has a phone number
+        const userNumDoesExist = async () => {
+            const res = await userHasNumber(req.app.get('db'), req.user.id);
+            const doesExist = res.rows[0].exists;
+
+            return doesExist;
+        }
+        
+        // sets 'hasNumber' to true or false after promise is resolved 
+        const hasNumber = await userNumDoesExist();
+        
+
+        // if user has a number send profile info with number else send regular profile info
+        if (hasNumber) {
+            getProfileWithNumber(req.app.get('db'), req.user.id)
             .then(userInfo => {
                 res.json(userInfo)
             })
             .catch(next)
+        
+        } else {
+            getProfile(req.app.get('db'), req.user.id)
+                .then(userInfo => {
+                    res.json(userInfo)
+                })
+                .catch(next)
+            }    
     })
     .delete(requireAuth, (req, res, next) => {
         ProfileService.deleteProfile(req.app.get('db'), req.user.id)
