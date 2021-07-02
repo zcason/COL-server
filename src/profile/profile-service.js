@@ -26,8 +26,7 @@ const ProfileService = {
             .where({ 'id': user_id })
             .delete()
     },
-
-    // this for adding phone number to profile
+    // this is for adding a phone number to profile
     postPhoneNumber(db, newPhoneNumber) {
         return db
         .insert(newPhoneNumber)
@@ -41,10 +40,13 @@ const ProfileService = {
             users_number: xss(phoneNumber.users_number),
             user_id: phoneNumber.user_id
         }
+    },
+    // this is for deleting a phone number from user's profile
+    deletePhoneNumber(db, user_id) {
+        return db('phone_number')
+            .where({ 'user_id': user_id })
+            .delete()
     }
-
-    // this for deleting phone number from profile 
-
 }
 
 module.exports = ProfileService;

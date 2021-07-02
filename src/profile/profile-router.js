@@ -40,6 +40,7 @@ profileRouter
                 .catch(next)
             }    
     })
+    // delete account service
     .delete(requireAuth, (req, res, next) => {
         ProfileService.deleteProfile(req.app.get('db'), req.user.id)
             .then(() => {
@@ -47,7 +48,7 @@ profileRouter
             })
             .catch(next)
     })
-    // phone number services
+    // phone number service
     .post(requireAuth, jsonBodyParser, (req,res, next) => {
         const {users_number} = req.body;
         const newPhoneNumber = {
@@ -67,6 +68,19 @@ profileRouter
                 .json(ProfileService.serializePhoneNumber(phoneNumber))
         })
         .catch(next)
-    })
+    });
+
+    profileRouter
+    .route('/number')
+    // deletes users phone number
+    .delete(requireAuth, (req, res, next) => {
+        const { id } = req.params;
+        ProfileService.deletePhoneNumber(req.app.get('db'), req.user.id)
+            .then(() => {
+                res.status(204).end()
+            })
+            .catch(next)
+
+    });
 
 module.exports = profileRouter;
